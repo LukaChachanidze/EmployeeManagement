@@ -29,7 +29,7 @@ namespace EmployeeManagment.Controllers
             this.logger = logger;
         }
         [HttpGet]
-        [AllowAnonymous]
+       
         public IActionResult AccessDenied()
         {
             return View();
@@ -116,6 +116,7 @@ namespace EmployeeManagment.Controllers
 
         [HttpPost]
         [Authorize(Policy = "EditRolePolicy")]
+
         public async Task<IActionResult> ManageUserRoles(List<UserRolesViewModel>
             model,string userId)
         {
@@ -147,7 +148,8 @@ namespace EmployeeManagment.Controllers
             return RedirectToAction("EditUser", new { Id = userId });
         }
       [HttpGet]
-      [Authorize(Policy = "EditRolePolicy")]
+       
+        [Authorize(Policy = "EditRolePolicy")]
         public async Task<IActionResult> ManageUserRoles(string UserId)
         {
             var user = await userManager.FindByIdAsync(UserId); 
@@ -185,6 +187,7 @@ namespace EmployeeManagment.Controllers
     }
 
         [HttpPost]
+  
         public async Task<IActionResult> DeleteRole(string id)
         {
             var role = await roleManager.FindByIdAsync(id);
@@ -228,6 +231,7 @@ namespace EmployeeManagment.Controllers
         }
 
         [HttpPost]
+        
         public async Task<IActionResult> DeleteUser(string id)
         {
             var user = await userManager.FindByIdAsync(id);
@@ -255,6 +259,7 @@ namespace EmployeeManagment.Controllers
             }
         }
         [HttpGet]
+      
         public async Task<IActionResult> EditUser(string id)
         {
             var user = await userManager.FindByIdAsync(id);
@@ -283,6 +288,7 @@ namespace EmployeeManagment.Controllers
             return View(model);
         }
         [HttpPost]
+      
         public async Task<IActionResult> EditUser(EditUserViewModel model)
         {
             var user = await userManager.FindByIdAsync(model.Id);
@@ -315,6 +321,7 @@ namespace EmployeeManagment.Controllers
             }
         }
         [HttpGet]
+      
         public IActionResult ListUsers()
         {
             var users = userManager.Users;
@@ -329,6 +336,7 @@ namespace EmployeeManagment.Controllers
        
 
         [HttpPost]
+       
         public async Task<IActionResult> CreateRole(CreateRoleViewModel model)
         {
             if (ModelState.IsValid)
@@ -357,6 +365,7 @@ namespace EmployeeManagment.Controllers
         }
 
         [HttpGet]
+      
         public IActionResult ListRoles()
         {
             var roles = roleManager.Roles;
@@ -364,7 +373,8 @@ namespace EmployeeManagment.Controllers
         }
 
         [HttpGet]
-        
+       
+
         public async Task<IActionResult> EditRole(string id)
         {
           var role = await roleManager.FindByIdAsync(id);
@@ -398,7 +408,7 @@ namespace EmployeeManagment.Controllers
         }
 
         [HttpPost]
-        
+       
         public async Task<IActionResult> EditRole(EditRoleViewModel model)
         {
             var role = await roleManager.FindByIdAsync(model.Id);
@@ -426,6 +436,7 @@ namespace EmployeeManagment.Controllers
             }
         }
         [HttpGet]
+       
         public async Task<IActionResult> EditUsersInRole(string roleId)
         {
             ViewBag.roleId = roleId;
@@ -462,6 +473,7 @@ namespace EmployeeManagment.Controllers
         }
 
         [HttpPost]
+      
         // List will recieve names from our hidden input element in our view
         //Role id is coming from query string parameter from url
         public async Task<IActionResult> EditUsersInRole(List<UserRoleViewModel> model, string roleId)

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -46,6 +47,27 @@ namespace EmployeeManagment.Controllers
                                 return e;
                             });
             return View(model);
+        }
+        [AllowAnonymous]
+        public IActionResult Delete(int id)
+        {
+            //throw new Exception("Error");
+
+            Employee employee = _employeeRepository.GetEmployee(id);
+
+            if (employee == null)
+            {
+                Response.StatusCode = 404;
+                return View("EmployeeNotFound");
+            }
+
+            var deletedEmployee = _employeeRepository.Delete(employee.Id);
+            if (deletedEmployee == null)
+            {
+                Response.StatusCode = 404;
+                return View("EmployeeNotFound");
+            }
+            return RedirectToAction("index");
         }
 
         [AllowAnonymous]
